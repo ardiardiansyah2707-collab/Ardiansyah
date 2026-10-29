@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ardiansyah - 262505020 - Aritmetika Modular</title>
+    <title>Ardiansyah - 262505020 - Kalkulator Aritmetika Modular</title>
 
     <style>
         * {
@@ -36,7 +36,7 @@
         }
 
         .card {
-            background: white;
+            background: #ffffff;
             padding: 25px;
             border-radius: 16px;
             margin-bottom: 22px;
@@ -63,6 +63,7 @@
             border-radius: 9px;
             background: #fafbf8;
             font-size: 15px;
+            outline-color: #91aa96;
         }
 
         button {
@@ -115,14 +116,13 @@
         }
 
         .penjelasan {
-            text-align: left;
             border-top: 1px solid #d5ddd3;
-            margin-top: 15px;
+            margin-top: 12px;
             padding-top: 10px;
         }
 
-        .penjelasan h3 {
-            color: #526b5b;
+        .penjelasan p {
+            margin: 8px 0;
         }
 
         footer {
@@ -145,7 +145,7 @@
     <!-- KALKULATOR MODULAR -->
     <div class="card">
         <h2>01. Kalkulator Modular</h2>
-        <p>Cari sisa hasil pembagian dua bilangan.</p>
+        <p>Cari sisa hasil pembagian suatu bilangan.</p>
 
         <label for="angka">Bilangan</label>
         <input type="number" id="angka" placeholder="Contoh: 17">
@@ -178,7 +178,6 @@
             Cek Kongruensi
         </button>
 
-        <!-- PENJELASAN MUNCUL DI BAWAH TOMBOL -->
         <div class="hasil" id="hasilKongruensi">
             Hasil dan penjelasan akan muncul di sini.
         </div>
@@ -213,7 +212,7 @@
             <strong>${a} mod ${n} = ${hasil}</strong>
             <div class="penjelasan">
                 <b>Penjelasan:</b>
-                <p>${a} dibagi ${n} menghasilkan sisa ${hasil}.</p>
+                <p>${a} dibagi ${n} memiliki sisa ${hasil}.</p>
             </div>
         `;
     }
@@ -245,35 +244,20 @@
         let sisaA = ((a % n) + n) % n;
         let sisaB = ((b % n) + n) % n;
 
-        let bagiA = Math.floor(a / n);
-        let bagiB = Math.floor(b / n);
-
         if (sisaA === sisaB) {
             output.className = "hasil kongruen";
 
             output.innerHTML = `
-                <h2 style="color:#39734d">✅ BENAR</h2>
-
+                <h2 style="color: #39734d;">✅ BENAR</h2>
                 <strong>${a} ≡ ${b} (mod ${n})</strong>
 
                 <div class="penjelasan">
-                    <h3>Penjelasan Perhitungan</h3>
-
-                    <p><b>Langkah 1: Hitung sisa A.</b></p>
-                    <p>${a} = (${bagiA} × ${n}) + ${sisaA}</p>
-                    <p>Sisa pembagian ${a} adalah ${sisaA}.</p>
-
-                    <p><b>Langkah 2: Hitung sisa B.</b></p>
-                    <p>${b} = (${bagiB} × ${n}) + ${sisaB}</p>
-                    <p>Sisa pembagian ${b} adalah ${sisaB}.</p>
-
-                    <p><b>Langkah 3: Bandingkan kedua sisa.</b></p>
-                    <p>${sisaA} = ${sisaB}</p>
-
+                    <b>Penjelasan:</b>
+                    <p>${a} mod ${n} = ${sisaA}</p>
+                    <p>${b} mod ${n} = ${sisaB}</p>
                     <p>
-                        <b>Kesimpulan:</b> Kedua sisa pembagian sama.
-                        Jadi, ${a} dan ${b} kongruen modulo ${n}.
-                        Pernyataan tersebut BENAR.
+                        Kedua sisa sama, yaitu ${sisaA}.
+                        Jadi, kedua bilangan kongruen modulo ${n}.
                     </p>
                 </div>
             `;
@@ -281,28 +265,16 @@
             output.className = "hasil tidak";
 
             output.innerHTML = `
-                <h2 style="color:#b34444">❌ SALAH</h2>
-
+                <h2 style="color: #b34444;">❌ SALAH</h2>
                 <strong>${a} ≢ ${b} (mod ${n})</strong>
 
                 <div class="penjelasan">
-                    <h3>Penjelasan Perhitungan</h3>
-
-                    <p><b>Langkah 1: Hitung sisa A.</b></p>
-                    <p>${a} = (${bagiA} × ${n}) + ${sisaA}</p>
-                    <p>Sisa pembagian ${a} adalah ${sisaA}.</p>
-
-                    <p><b>Langkah 2: Hitung sisa B.</b></p>
-                    <p>${b} = (${bagiB} × ${n}) + ${sisaB}</p>
-                    <p>Sisa pembagian ${b} adalah ${sisaB}.</p>
-
-                    <p><b>Langkah 3: Bandingkan kedua sisa.</b></p>
-                    <p>${sisaA} ≠ ${sisaB}</p>
-
+                    <b>Penjelasan:</b>
+                    <p>${a} mod ${n} = ${sisaA}</p>
+                    <p>${b} mod ${n} = ${sisaB}</p>
                     <p>
-                        <b>Kesimpulan:</b> Kedua sisa pembagian berbeda.
-                        Jadi, ${a} dan ${b} tidak kongruen modulo ${n}.
-                        Pernyataan tersebut SALAH.
+                        Sisa berbeda, yaitu ${sisaA} dan ${sisaB}.
+                        Jadi, kedua bilangan tidak kongruen modulo ${n}.
                     </p>
                 </div>
             `;
