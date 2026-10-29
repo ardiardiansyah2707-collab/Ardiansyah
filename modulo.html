@@ -218,70 +218,46 @@
     }
 
     // PENGECEK KONGRUENSI
-    function cekKongruensi() {
-        let inputA = document.getElementById("bilanganA").value;
-        let inputB = document.getElementById("bilanganB").value;
-        let inputN = document.getElementById("modN").value;
-        let output = document.getElementById("hasilKongruensi");
+   
+function cekKongruensi() {
+    let a = document.getElementById("bilanganA").value;
+    let b = document.getElementById("bilanganB").value;
+    let n = document.getElementById("modN").value;
+    let output = document.getElementById("hasilKongruensi");
 
-        if (inputA.trim() === "" ||
-            inputB.trim() === "" ||
-            inputN.trim() === "" ||
-            !Number.isFinite(Number(inputA)) ||
-            !Number.isFinite(Number(inputB)) ||
-            !Number.isFinite(Number(inputN)) ||
-            Number(inputN) <= 0) {
-            output.className = "hasil";
-            output.innerHTML =
-                "Masukkan dua bilangan dan modulus positif yang valid!";
-            return;
-        }
-
-        let a = Number(inputA);
-        let b = Number(inputB);
-        let n = Number(inputN);
-
-        let sisaA = ((a % n) + n) % n;
-        let sisaB = ((b % n) + n) % n;
-
-        if (sisaA === sisaB) {
-            output.className = "hasil kongruen";
-
-            output.innerHTML = `
-                <h2 style="color: #39734d;">✅ BENAR</h2>
-                <strong>${a} ≡ ${b} (mod ${n})</strong>
-
-                <div class="penjelasan">
-                    <b>Penjelasan:</b>
-                    <p>${a} mod ${n} = ${sisaA}</p>
-                    <p>${b} mod ${n} = ${sisaB}</p>
-                    <p>
-                        Kedua sisa sama, yaitu ${sisaA}.
-                        Jadi, kedua bilangan kongruen modulo ${n}.
-                    </p>
-                </div>
-            `;
-        } else {
-            output.className = "hasil tidak";
-
-            output.innerHTML = `
-                <h2 style="color: #b34444;">❌ SALAH</h2>
-                <strong>${a} ≢ ${b} (mod ${n})</strong>
-
-                <div class="penjelasan">
-                    <b>Penjelasan:</b>
-                    <p>${a} mod ${n} = ${sisaA}</p>
-                    <p>${b} mod ${n} = ${sisaB}</p>
-                    <p>
-                        Sisa berbeda, yaitu ${sisaA} dan ${sisaB}.
-                        Jadi, kedua bilangan tidak kongruen modulo ${n}.
-                    </p>
-                </div>
-            `;
-        }
+    if (a === "" || b === "" || n === "" ||
+        !Number.isFinite(Number(a)) ||
+        !Number.isFinite(Number(b)) ||
+        !Number.isFinite(Number(n)) || Number(n) <= 0) {
+        output.className = "hasil";
+        output.innerHTML = "Masukkan bilangan dan modulus positif!";
+        return;
     }
-</script>
 
-</body>
-</html>
+    a = Number(a);
+    b = Number(b);
+    n = Number(n);
 
+    let sisaA = ((a % n) + n) % n;
+    let sisaB = ((b % n) + n) % n;
+
+    if (sisaA === sisaB) {
+        output.className = "hasil kongruen";
+        output.innerHTML = `
+            <h2 style="color:green">✅ BENAR</h2>
+            <strong>${a} ≡ ${b} (mod ${n})</strong>
+            <p>${a} mod ${n} = ${sisaA}</p>
+            <p>${b} mod ${n} = ${sisaB}</p>
+            <b>Penjelasan:</b> Sisa sama, jadi kedua bilangan kongruen.
+        `;
+    } else {
+        output.className = "hasil tidak";
+        output.innerHTML = `
+            <h2 style="color:red">❌ SALAH</h2>
+            <strong>${a} ≢ ${b} (mod ${n})</strong>
+            <p>${a} mod ${n} = ${sisaA}</p>
+            <p>${b} mod ${n} = ${sisaB}</p>
+            <b>Penjelasan:</b> Sisa berbeda, jadi kedua bilangan tidak kongruen.
+        `;
+    }
+}
