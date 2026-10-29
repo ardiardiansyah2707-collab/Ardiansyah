@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -96,8 +95,8 @@
             padding: 15px;
             border-radius: 10px;
             margin-top: 18px;
+            text-align: center;
             overflow-wrap: anywhere;
-            line-height: 1.6;
         }
 
         .hasil strong {
@@ -106,23 +105,11 @@
         }
 
         .kongruen {
-            background: #edf5ed;
-            border: 1px solid #c9dfca;
+            background: #edf3ec;
         }
 
         .tidak {
             background: #f8eeee;
-            border: 1px solid #ebcccc;
-        }
-
-        .penjelasan {
-            border-top: 1px solid #d5ddd3;
-            margin-top: 12px;
-            padding-top: 10px;
-        }
-
-        .penjelasan p {
-            margin: 8px 0;
         }
 
         footer {
@@ -135,129 +122,136 @@
 </head>
 
 <body>
-<div class="container">
+    <div class="container">
 
-    <h1>Aritmetika Modular</h1>
-    <p class="deskripsi">
-        Kalkulator Modulo dan Pengecek Kongruensi
-    </p>
+        <h1>Aritmetika Modular</h1>
+        <p class="deskripsi">
+            Kalkulator Modulo dan Pengecek Kongruensi
+        </p>
 
-    <!-- KALKULATOR MODULAR -->
-    <div class="card">
-        <h2>01. Kalkulator Modular</h2>
-        <p>Cari sisa hasil pembagian suatu bilangan.</p>
+        <!-- KALKULATOR MODULAR -->
+        <div class="card">
+            <h2>01. Kalkulator Modular</h2>
+            <p>Cari sisa hasil pembagian dua bilangan.</p>
 
-        <label for="angka">Bilangan</label>
-        <input type="number" id="angka" placeholder="Contoh: 17">
+            <label for="angka">Bilangan</label>
+            <input type="number" id="angka"
+                   placeholder="Contoh: 17">
 
-        <label for="modulus">Pembagi (n)</label>
-        <input type="number" id="modulus" placeholder="Contoh: 5">
+            <label for="modulus">Pembagi (n)</label>
+            <input type="number" id="modulus"
+                   placeholder="Contoh: 5">
 
-        <button onclick="hitungModular()">Hitung Mod</button>
+            <button onclick="hitungModular()">
+                Hitung Mod
+            </button>
 
-        <div class="hasil" id="hasilMod">
-            Hasil: -
+            <div class="hasil" id="hasilMod">
+                Hasil: -
+            </div>
         </div>
+
+        <!-- PENGECEK KONGRUENSI -->
+        <div class="card">
+            <h2>02. Pengecek Kongruensi</h2>
+            <p>Cek apakah dua bilangan kongruen modulo n.</p>
+
+            <label for="bilanganA">Bilangan A</label>
+            <input type="number" id="bilanganA"
+                   placeholder="Contoh: 17">
+
+            <label for="bilanganB">Bilangan B</label>
+            <input type="number" id="bilanganB"
+                   placeholder="Contoh: 7">
+
+            <label for="modN">Modulus (n)</label>
+            <input type="number" id="modN"
+                   placeholder="Contoh: 5">
+
+            <button class="lavender"
+                    onclick="cekKongruensi()">
+                Cek Kongruensi
+            </button>
+
+            <div class="hasil" id="hasilKongruensi">
+                Hasil pengecekan: -
+            </div>
+        </div>
+
+        <footer>
+            Matematika Informasi | Aritmetika Modular
+        </footer>
+
     </div>
 
-    <!-- PENGECEK KONGRUENSI -->
-    <div class="card">
-        <h2>02. Pengecek Kongruensi</h2>
-        <p>Cek apakah dua bilangan kongruen modulo n.</p>
+    <script>
+        // Menghitung sisa pembagian
+        function hitungModular() {
+            let a = document.getElementById("angka").value;
+            let n = Number(
+                document.getElementById("modulus").value
+            );
 
-        <label for="bilanganA">Bilangan A</label>
-        <input type="number" id="bilanganA" placeholder="Contoh: 17">
+            let output = document.getElementById("hasilMod");
 
-        <label for="bilanganB">Bilangan B</label>
-        <input type="number" id="bilanganB" placeholder="Contoh: 7">
+            if (a.trim() === "" ||
+                document.getElementById("modulus").value === "" ||
+                n <= 0) {
+                output.innerHTML =
+                    "Masukkan bilangan dan pembagi positif!";
+                return;
+            }
 
-        <label for="modN">Modulus (n)</label>
-        <input type="number" id="modN" placeholder="Contoh: 5">
+            a = Number(a);
+            let hasil = ((a % n) + n) % n;
 
-        <button class="lavender" onclick="cekKongruensi()">
-            Cek Kongruensi
-        </button>
-
-        <div class="hasil" id="hasilKongruensi">
-            Hasil dan penjelasan akan muncul di sini.
-        </div>
-    </div>
-
-    <footer>
-        Matematika Informasi | Aritmetika Modular
-    </footer>
-
-</div>
-
-<script>
-    // KALKULATOR MODULAR
-    function hitungModular() {
-        let a = document.getElementById("angka").value;
-        let n = Number(document.getElementById("modulus").value);
-        let output = document.getElementById("hasilMod");
-
-        if (a.trim() === "" ||
-            document.getElementById("modulus").value === "" ||
-            !Number.isFinite(Number(a)) ||
-            !Number.isFinite(n) || n <= 0) {
             output.innerHTML =
-                "Masukkan bilangan dan pembagi positif yang valid!";
-            return;
+                "<strong>" + a + " mod " + n +
+                " = " + hasil + "</strong>";
         }
 
-        a = Number(a);
-        let hasil = ((a % n) + n) % n;
+        // Mengecek hubungan kongruensi
+        function cekKongruensi() {
+            let a = document.getElementById("bilanganA").value;
+            let b = document.getElementById("bilanganB").value;
+            let n = document.getElementById("modN").value;
 
-        output.innerHTML = `
-            <strong>${a} mod ${n} = ${hasil}</strong>
-            <div class="penjelasan">
-                <b>Penjelasan:</b>
-                <p>${a} dibagi ${n} memiliki sisa ${hasil}.</p>
-            </div>
-        `;
-    }
+            let output = document.getElementById(
+                "hasilKongruensi"
+            );
 
-    // PENGECEK KONGRUENSI
-   
-function cekKongruensi() {
-    let a = document.getElementById("bilanganA").value;
-    let b = document.getElementById("bilanganB").value;
-    let n = document.getElementById("modN").value;
-    let output = document.getElementById("hasilKongruensi");
+            if (a.trim() === "" || b.trim() === "" ||
+                n.trim() === "" || Number(n) <= 0) {
+                output.className = "hasil";
+                output.innerHTML =
+                    "Masukkan dua bilangan dan modulus positif!";
+                return;
+            }
 
-    if (a === "" || b === "" || n === "" ||
-        !Number.isFinite(Number(a)) ||
-        !Number.isFinite(Number(b)) ||
-        !Number.isFinite(Number(n)) || Number(n) <= 0) {
-        output.className = "hasil";
-        output.innerHTML = "Masukkan bilangan dan modulus positif!";
-        return;
-    }
+            a = Number(a);
+            b = Number(b);
+            n = Number(n);
 
-    a = Number(a);
-    b = Number(b);
-    n = Number(n);
+            let sisaA = ((a % n) + n) % n;
+            let sisaB = ((b % n) + n) % n;
 
-    let sisaA = ((a % n) + n) % n;
-    let sisaB = ((b % n) + n) % n;
-
-    if (sisaA === sisaB) {
-        output.className = "hasil kongruen";
-        output.innerHTML = `
-            <h2 style="color:green">✅ BENAR</h2>
-            <strong>${a} ≡ ${b} (mod ${n})</strong>
-            <p>${a} mod ${n} = ${sisaA}</p>
-            <p>${b} mod ${n} = ${sisaB}</p>
-            <b>Penjelasan:</b> Sisa sama, jadi kedua bilangan kongruen.
-        `;
-    } else {
-        output.className = "hasil tidak";
-        output.innerHTML = `
-            <h2 style="color:red">❌ SALAH</h2>
-            <strong>${a} ≢ ${b} (mod ${n})</strong>
-            <p>${a} mod ${n} = ${sisaA}</p>
-            <p>${b} mod ${n} = ${sisaB}</p>
-            <b>Penjelasan:</b> Sisa berbeda, jadi kedua bilangan tidak kongruen.
-        `;
-    }
-}
+            if (sisaA === sisaB) {
+                output.className = "hasil kongruen";
+                output.innerHTML =
+                    "<strong>" + a + " ≡ " + b +
+                    " (mod " + n + ")</strong>" +
+                    "<p>Kongruen! Sisa keduanya sama, yaitu " +
+                    sisaA + ".</p>";
+            } else {
+                output.className = "hasil tidak";
+                output.innerHTML =
+                    "<strong>" + a + " ≢ " + b +
+                    " (mod " + n + ")</strong>" +
+                    "<p>Tidak kongruen. Sisa " + a +
+                    " = " + sisaA + ", sedangkan sisa " +
+                    b + " = " + sisaB + ".</p>";
+            }
+        }
+    </script>
+</body>
+</html>
